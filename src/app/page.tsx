@@ -7,7 +7,6 @@ const CDN = "https://cdn.prod.website-files.com/62e82c4f4d59cb564e6a7e0a";
 
 const LOGO_WHITE = `${CDN}/6911236f745dea323f1b58f6_jamminlogowhite.png`;
 const FOOTER_LOGO = `${CDN}/67fadb5acad347c393e9fe85_jammin-footer-logo.png`;
-const APP_SCREENSHOT = `${CDN}/6966ccbd596754d8e4617349_jammin-gb.png`;
 const BEN_LANG_PHOTO = `${CDN}/67fadb5acad347c393e9fe78_image-126.png`;
 const PLAY_ICON = `${CDN}/67fadb5acad347c393e9fe7a_67749da75c7997b7dddb301a_play.svg`;
 
@@ -149,43 +148,35 @@ function Navbar() {
 function Hero() {
   return (
     <section id="home" className="bg-[#111] min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden">
-      <div className="max-w-4xl mx-auto px-6 text-center flex flex-col items-center gap-8">
-        <div className="flex flex-col items-center gap-4">
-          <h1 className="gradient-text text-5xl md:text-7xl font-extrabold leading-tight tracking-tight">
+      <div className="max-w-5xl mx-auto px-6 text-center flex flex-col items-center gap-8">
+        <h1 className="text-5xl md:text-7xl font-normal leading-[1.1] tracking-tight">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ffd6e4] to-[#e9799f]">
             Where music is made together,
-          </h1>
-          <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight tracking-tight">
-            not sent back and forth
-          </h2>
-        </div>
+          </span>
+          <br />
+          <span className="text-white">not sent back and forth</span>
+        </h1>
         <p className="text-white/60 text-lg font-medium">Music was never meant to be felt alone</p>
         <div className="flex flex-col sm:flex-row items-center gap-4">
           <a href="https://app.jamminstudio.co/register" target="_blank" rel="noopener noreferrer"
-            className="px-6 py-3 bg-[#ff76a2] text-white font-semibold rounded-lg hover:opacity-90 transition-opacity text-sm">
+            className="px-8 py-3.5 bg-gradient-to-b from-[#f48fb1] to-[#e63573] text-white font-semibold rounded-xl hover:opacity-90 transition-opacity">
             Join the Jam
           </a>
           <a href="#features"
-            className="flex items-center gap-2 px-6 py-3 border border-[#ff76a2] rounded-lg text-white font-semibold text-sm hover:opacity-80 transition-opacity">
+            className="flex items-center gap-2 px-8 py-3.5 border border-[#ff76a2] rounded-xl text-white font-semibold hover:opacity-80 transition-opacity">
             <Image src={PLAY_ICON} alt="" width={16} height={16} />
             See it in action
           </a>
         </div>
-        <div className="flex items-center gap-3 mt-2">
-          <Image src={BEN_LANG_PHOTO} alt="Ben Lang" width={28} height={28} className="rounded-full" />
-          <p className="text-white/60 text-sm italic">
-            &quot;Feels like figma for music is finally here. Super cool.&quot; — <span className="text-white font-medium not-italic">Ben Lang</span>
+        <div className="flex flex-col items-center gap-3 mt-2">
+          <p className="text-white/60 italic max-w-sm">
+            &quot;Feels like figma for music is finally here. Super cool.&quot;
           </p>
+          <div className="flex items-center gap-3">
+            <Image src={BEN_LANG_PHOTO} alt="Ben Lang" width={28} height={28} className="rounded-full" />
+            <span className="text-white font-medium">Ben Lang</span>
+          </div>
         </div>
-      </div>
-      <div className="w-full mt-16 px-4 md:px-12 max-w-7xl mx-auto">
-        <Image
-          src={APP_SCREENSHOT}
-          alt="Jammin' app screenshot"
-          width={3024}
-          height={1800}
-          className="w-full rounded-2xl"
-          priority
-        />
       </div>
     </section>
   );
