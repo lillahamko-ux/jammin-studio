@@ -98,28 +98,6 @@ const PARTNERS = [
   { name: "Unicorn Factory Lisboa", href: "https://unicornfactorylisboa.com/", img: `${CDN}/69597fb2234c78fdf0f2c6a1_Logo%20UFL_Branco_sem%20fundo.png` },
 ];
 
-const FAQS = [
-  {
-    q: "Can I use Jammin' with any instrument?",
-    a: "Yes, Jammin' supports all types of instruments. Whether you play guitar, piano, drums, or any other instrument, you can join in and collaborate with others.",
-  },
-  {
-    q: "What equipment do I need to use Jammin'?",
-    a: "You need your instrument, a device with internet access (computer, tablet, or smartphone), and a reliable Wi-Fi connection. Additional equipment like a good-quality microphone or audio interface can enhance your experience.",
-  },
-  {
-    q: "Can I record my sessions on Jammin'?",
-    a: "Yes! With a premium subscription, you can record your sessions and save them for later playback or sharing.",
-  },
-  {
-    q: "How do I find other musicians to jam with?",
-    a: "You can browse and join existing sessions or use our matchmaking feature to connect with musicians who share your musical interests and skill level.",
-  },
-  {
-    q: "What is Jammin'?",
-    a: "Jammin' is a collaborative music platform that lets musicians create, record, and share music together in real time, directly from their browser.",
-  },
-];
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -130,7 +108,7 @@ function Navbar() {
           <Image src={LOGO_WHITE} alt="Jammin'" width={120} height={28} priority />
         </a>
         <div className="hidden md:flex items-center gap-8">
-          {[["#about", "About"], ["#features", "Features"], ["#kindwords", "Kind words"], ["#faqsection", "FAQ"]].map(([href, label]) => (
+          {[["#about", "About"], ["#features", "Features"], ["#kindwords", "Kind words"]].map(([href, label]) => (
             <a key={href} href={href} className="text-sm text-white/70 hover:text-white transition-colors font-medium">
               {label}
             </a>
@@ -154,7 +132,7 @@ function Navbar() {
       </div>
       {open && (
         <div className="md:hidden bg-[#111] border-b border-white/10 px-6 py-4 flex flex-col gap-4">
-          {[["#about", "About"], ["#features", "Features"], ["#kindwords", "Kind words"], ["#faqsection", "FAQ"]].map(([href, label]) => (
+          {[["#about", "About"], ["#features", "Features"], ["#kindwords", "Kind words"]].map(([href, label]) => (
             <a key={href} href={href} className="text-sm text-white/70" onClick={() => setOpen(false)}>{label}</a>
           ))}
           <div className="flex gap-3 pt-2">
@@ -326,7 +304,7 @@ function CTA() {
   return (
     <section className="bg-[#111] py-24 px-6">
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-4xl md:text-6xl font-normal leading-tight mb-8">
+        <h2 className="text-3xl md:text-5xl font-normal leading-tight mb-8">
           <span className="text-white">Take your musicianship</span>
           <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ffb3cc] to-[#e63573]">
@@ -368,51 +346,65 @@ function Partners() {
   );
 }
 
-function FAQ() {
-  const [open, setOpen] = useState<number | null>(null);
-  return (
-    <section id="faqsection" className="bg-[#111] py-20 px-6">
-      <div className="max-w-3xl mx-auto">
-        <h2 className="text-3xl font-extrabold text-white mb-10">Frequently asked questions</h2>
-        <div className="flex flex-col gap-4">
-          {FAQS.map((faq, i) => (
-            <div key={i} className="border border-[#ff76a2]/30 rounded-2xl overflow-hidden">
-              <button
-                className="w-full text-left px-8 py-7 flex items-start justify-between gap-6 hover:bg-white/5 transition-colors"
-                onClick={() => setOpen(open === i ? null : i)}
-              >
-                <span className="text-2xl md:text-3xl font-bold text-white leading-snug">{faq.q}</span>
-                <span className="text-white/70 flex-shrink-0 text-2xl leading-none mt-1">
-                  {open === i ? "✕" : "+"}
-                </span>
-              </button>
-              {open === i && (
-                <div className="px-8 pb-8 -mt-2">
-                  <p className="text-lg md:text-xl text-white/70 leading-relaxed">{faq.a}</p>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Footer() {
   return (
     <footer className="bg-[#0d0d0d] border-t border-white/10 px-6 pt-12">
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-10">
-          <a href="/">
-            <Image src={FOOTER_LOGO} alt="Jammin'" width={140} height={32} className="object-contain" />
-          </a>
-          <div className="flex flex-wrap gap-6 text-sm text-white/40">
-            {[["#about", "About"], ["#features", "Features"], ["#kindwords", "Kind words"], ["#faqsection", "FAQ"]].map(([href, label]) => (
-              <a key={href} href={href} className="hover:text-white/70 transition-colors">{label}</a>
-            ))}
-            <a href="#" className="hover:text-white/70 transition-colors">Privacy policy</a>
-            <a href="#" className="hover:text-white/70 transition-colors">Terms and Conditions</a>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
+          {/* Brand + tagline */}
+          <div>
+            <div className="flex items-center gap-3 mb-5">
+              <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-white text-black">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
+                </svg>
+              </span>
+              <span className="text-2xl font-bold text-white">Jammin&apos;</span>
+            </div>
+            <p className="text-sm text-white/50 leading-relaxed max-w-xs">
+              We believe that talent and dedication alone should be able to give musicians a great living.
+            </p>
+          </div>
+
+          {/* Pages */}
+          <div>
+            <h3 className="text-white font-semibold mb-5">Pages</h3>
+            <ul className="flex flex-col gap-4 text-sm text-white/50">
+              <li><a href="/" className="hover:text-white transition-colors">Home</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Meet the Band</a></li>
+              <li><a href="https://app.jamminstudio.co/login" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Log in</a></li>
+              <li><a href="https://app.jamminstudio.co/register" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Sign up</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Roadmap</a></li>
+            </ul>
+          </div>
+
+          {/* Legal + socials */}
+          <div>
+            <h3 className="text-white font-semibold mb-5">Legal</h3>
+            <ul className="flex flex-col gap-4 text-sm text-white/50 mb-6">
+              <li><a href="#" className="hover:text-white transition-colors">Privacy policy</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Terms and Conditions</a></li>
+            </ul>
+            <div className="flex items-center gap-4 text-white/70">
+              <a href="#" aria-label="Instagram" className="hover:text-white transition-colors">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                </svg>
+              </a>
+              <a href="#" aria-label="X" className="hover:text-white transition-colors">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2H21.5l-7.5 8.57L22.5 22h-6.9l-5.4-7.06L4 22H.74l8.02-9.17L1.5 2h7.07l4.88 6.45L18.244 2zm-1.21 18h1.9L7.05 4H5.02l12.014 16z" />
+                </svg>
+              </a>
+              <a href="#" aria-label="LinkedIn" className="hover:text-white transition-colors">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="2" y="2" width="20" height="20" rx="3" />
+                  <path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 014 0v4" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -454,7 +446,6 @@ export default function Home() {
       <Testimonials />
       <CTA />
       <Partners />
-      <FAQ />
       <Footer />
     </div>
   );
