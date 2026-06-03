@@ -227,27 +227,31 @@ function Features() {
     <section id="features" className="bg-[#111] py-20 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-white">
+          <h2 className="text-4xl md:text-5xl font-normal text-white leading-tight">
             Features you don&apos;t find anywhere else
           </h2>
         </div>
-        <div className="flex flex-col md:flex-row gap-8">
-          <div className="flex md:flex-col gap-2 md:w-64 flex-shrink-0">
-            {FEATURE_TABS.map((tab, i) => (
-              <button
-                key={tab.label}
-                onClick={() => setActive(i)}
-                className={`text-left px-5 py-4 rounded-xl font-semibold text-sm transition-all ${
-                  active === i
-                    ? "bg-[#222] text-white border border-[#ff76a247]"
-                    : "text-white/50 hover:text-white/80"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
+        <div className="flex flex-col gap-10">
+          {/* Pill toggle bar */}
+          <div className="mx-auto w-full max-w-3xl">
+            <div className="flex flex-col sm:flex-row items-stretch p-1.5 rounded-full border border-[#ff76a230] bg-[#161616]">
+              {FEATURE_TABS.map((tab, i) => (
+                <button
+                  key={tab.label}
+                  onClick={() => setActive(i)}
+                  className={`flex-1 px-6 py-3 rounded-full font-semibold text-sm md:text-base transition-all ${
+                    active === i
+                      ? "bg-white text-black shadow"
+                      : "text-white/70 hover:text-white"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
           </div>
-          <div className="flex-1 rounded-2xl overflow-hidden bg-[#222] min-h-[360px] md:min-h-[480px]">
+          {/* Active video */}
+          <div className="rounded-2xl overflow-hidden bg-[#222]">
             <video
               key={FEATURE_TABS[active].mp4}
               autoPlay
@@ -255,7 +259,7 @@ function Features() {
               muted
               playsInline
               poster={FEATURE_TABS[active].poster}
-              className="w-full h-full object-cover"
+              className="w-full h-auto object-contain"
             >
               <source src={FEATURE_TABS[active].mp4} type="video/mp4" />
               <source src={FEATURE_TABS[active].webm} type="video/webm" />
