@@ -272,7 +272,7 @@ function Testimonials() {
     <section id="kindwords" className="bg-[#111] py-20 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-3">Hear it from our community</h2>
+          <h2 className="text-4xl md:text-5xl font-normal text-white mb-3">Hear it from our community</h2>
           <p className="text-white/50 text-lg">Nice feedback we received from our members</p>
         </div>
         <div className="grid md:grid-cols-2 gap-4">
