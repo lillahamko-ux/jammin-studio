@@ -1,151 +1,166 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
-const NAV_LINKS = [
-  { label: "About", href: "#about" },
-  { label: "Features", href: "#features" },
-  { label: "Kind words", href: "#testimonials" },
-  { label: "FAQ", href: "#faq" },
+const CDN = "https://cdn.prod.website-files.com/62e82c4f4d59cb564e6a7e0a";
+
+const LOGO_WHITE = `${CDN}/6911236f745dea323f1b58f6_jamminlogowhite.png`;
+const FOOTER_LOGO = `${CDN}/67fadb5acad347c393e9fe85_jammin-footer-logo.png`;
+const APP_SCREENSHOT = `${CDN}/6966ccbd596754d8e4617349_jammin-gb.png`;
+const BEN_LANG_PHOTO = `${CDN}/67fadb5acad347c393e9fe78_image-126.png`;
+const PLAY_ICON = `${CDN}/67fadb5acad347c393e9fe7a_67749da75c7997b7dddb301a_play.svg`;
+
+const BENTO = [
+  {
+    label: "first",
+    title: <>Create your <span className="text-[#ff76a2]">profile</span>, connect your socials</>,
+    img: `${CDN}/6911255bb8685c8bbc54f994_bento1.png`,
+    imgWidth: 311,
+    imgHeight: 400,
+  },
+  {
+    label: "second",
+    title: <><span className="text-[#ff76a2]">Collaborate</span> real time on music files</>,
+    img: `${CDN}/691125b30170aec32888c1fb_bento2.png`,
+    imgWidth: 624,
+    imgHeight: 300,
+  },
+  {
+    label: "third",
+    title: <>Share your music with the <span className="text-[#ff76a2]">community</span></>,
+    img: `${CDN}/6911261d70d97b935ff14e91_bento3.png`,
+    imgWidth: 418,
+    imgHeight: 260,
+  },
+  {
+    label: "forth",
+    title: <>Record, edit, share music in your <span className="text-[#ff76a2]">browser</span></>,
+    img: `${CDN}/6911267af75f88b0e5135ccc_bento4.png`,
+    imgWidth: 382,
+    imgHeight: 260,
+  },
 ];
 
-const FEATURES = [
+const FEATURE_TABS = [
   {
-    title: "Real-time Collaboration",
-    description:
-      "Work simultaneously on the same session with musicians anywhere in the world. No more bouncing files back and forth.",
-    icon: "🎸",
-    wide: true,
+    label: "Create music together",
+    poster: `${CDN}/6911133fe30b0a29cd8dfff7_Create%20music%20together%20%281%29-poster-00001.jpg`,
+    mp4: `${CDN}/6911133fe30b0a29cd8dfff7_Create%20music%20together%20%281%29-transcode.mp4`,
+    webm: `${CDN}/6911133fe30b0a29cd8dfff7_Create%20music%20together%20%281%29-transcode.webm`,
   },
   {
-    title: "Browser-based Studio",
-    description: "Record, edit, and mix directly in your browser — no installs required.",
-    icon: "🎛️",
-    wide: false,
+    label: "Find your community",
+    poster: `${CDN}/690f821498054641a5837fcb_Find%20your%20Community-poster-00001.jpg`,
+    mp4: `${CDN}/690f821498054641a5837fcb_Find%20your%20Community-transcode.mp4`,
+    webm: `${CDN}/690f821498054641a5837fcb_Find%20your%20Community-transcode.webm`,
   },
   {
-    title: "Community Sharing",
-    description: "Publish your work, discover music, and connect with artists in the Jammin' community.",
-    icon: "🎵",
-    wide: false,
-  },
-  {
-    title: "Portfolio & Opportunities",
-    description: "Build a profile, gain followers, and unlock performance and collaboration opportunities.",
-    icon: "🚀",
-    wide: true,
+    label: "Share & discover music",
+    poster: `${CDN}/6911158bc92a19b92ba61b44_Share%20%26%20discover%20music%20%281%29-poster-00001.jpg`,
+    mp4: `${CDN}/6911158bc92a19b92ba61b44_Share%20%26%20discover%20music%20%281%29-transcode.mp4`,
+    webm: `${CDN}/6911158bc92a19b92ba61b44_Share%20%26%20discover%20music%20%281%29-transcode.webm`,
   },
 ];
 
 const TESTIMONIALS = [
   {
-    name: "Ben Lang",
-    role: "Musician & Producer",
-    quote:
-      "Jammin' feels like design software, but for music. The collaborative experience is unlike anything I've used.",
-    initials: "BL",
-  },
-  {
+    quote: "Pretty cool idea! No more sending files back and forth.",
     name: "Landon Powell",
-    role: "Guitarist",
-    quote:
-      "Finally, no more back-and-forth file transfers. We just open a session and start playing.",
-    initials: "LP",
+    role: "Musician",
+    img: `${CDN}/67fadb5acad347c393e9fe6c_63588dedbd05f54c7879f6b0_Webclip_Jammin.png`,
   },
   {
+    quote: "I found it super intuitive and simple to use. Uncomplicated. The layout is very clean, without major commands for other features.",
     name: "Estela Cabral",
-    role: "Singer-Songwriter",
-    quote:
-      "The interface is so intuitive and uncluttered. It gets out of the way and lets you focus on the music.",
-    initials: "EC",
+    role: "Musician",
+    img: `${CDN}/67fadb5acad347c393e9fed2_Screenshot%202025-04-06%20at%2019.24.47.png`,
   },
   {
+    quote: "Jammin' is a game-changer for musicians like me who crave that live jam session vibe from home. Love how it brings everyone together in one virtual stage!",
     name: "Frank Petron",
-    role: "Drummer",
-    quote:
-      "It genuinely feels like a live jam session, even when we're on different continents.",
-    initials: "FP",
+    role: "Musician",
+    img: `${CDN}/67fadb5acad347c393e9fe95_Screenshot%202025-04-06%20at%2019.25.11.png`,
   },
   {
+    quote: "Even though it's still in a early stage, it's amazing everything that the platform already has!",
     name: "Guilherme Maia",
-    role: "Composer",
-    quote:
-      "Even at this early stage, the capabilities are impressive. The roadmap has me genuinely excited.",
-    initials: "GM",
+    role: "Musician",
+    img: `${CDN}/67fadb5acad347c393e9fe97_Screenshot%202025-04-06%20at%2019.25.39.png`,
   },
+];
+
+const PARTNERS = [
+  { name: "HawkStars", href: "http://hawkstars.org", img: `${CDN}/6827dddf8a9ca53f96d91d89_HawkStars_Logo.png` },
+  { name: "LXMN", href: "https://www.instagram.com/lxmusicnetwork/", img: `${CDN}/6827dddeb531f7afa0efd51b_LXMN_Logo.png` },
+  { name: "Barcelona Music Tech Hub", href: "https://barcelonamusictech.com/en/home/", img: `${CDN}/69542ebe723783fb224280e8_music-tech-hub-white.png` },
+  { name: "Music Technology UK", href: "https://musictechnology.uk/", img: `${CDN}/69c55dc238f03a09256840f4_MTUK_Logo.png` },
+  { name: "Unicorn Factory Lisboa", href: "https://unicornfactorylisboa.com/", img: `${CDN}/69597fb2234c78fdf0f2c6a1_Logo%20UFL_Branco_sem%20fundo.png` },
 ];
 
 const FAQS = [
   {
-    q: "What do I need to get started?",
-    a: "All you need is an instrument, an internet-connected device, and a reliable Wi-Fi connection. No downloads or installs required.",
+    q: "Can I use Jammin' with any instrument?",
+    a: "Yes, Jammin' supports all types of instruments. Whether you play guitar, piano, drums, or any other instrument, you can join in and collaborate with others.",
   },
   {
-    q: "Can I record my sessions?",
-    a: "Yes! Premium subscribers can record full sessions. Free users can still jam in real time and save their work.",
+    q: "What equipment do I need to use Jammin'?",
+    a: "You need your instrument, a device with internet access (computer, tablet, or smartphone), and a reliable Wi-Fi connection. Additional equipment like a good-quality microphone or audio interface can enhance your experience.",
   },
   {
-    q: "How many people can join a session?",
-    a: "Sessions support multiple musicians simultaneously. The exact limit depends on your plan.",
+    q: "Can I record my sessions on Jammin'?",
+    a: "Yes! With a premium subscription, you can record your sessions and save them for later playback or sharing.",
   },
   {
-    q: "Is Jammin' suitable for beginners?",
-    a: "Absolutely. Jammin' is designed to be welcoming for musicians of all skill levels, from hobbyists to professionals.",
+    q: "How do I find other musicians to jam with?",
+    a: "You can browse and join existing sessions or use our matchmaking feature to connect with musicians who share your musical interests and skill level.",
   },
   {
-    q: "Where can I follow the roadmap?",
-    a: "We keep our public roadmap on Trello. You can follow along and vote on upcoming features.",
+    q: "What is Jammin'?",
+    a: "Jammin' is a collaborative music platform that lets musicians create, record, and share music together in real time, directly from their browser.",
   },
 ];
 
-const PARTNERS = ["HawkStars", "LXMN", "Barcelona Music Tech Hub", "Music Technology UK", "Unicorn Factory Lisboa"];
-
-function NavBar() {
+function Navbar() {
   const [open, setOpen] = useState(false);
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-black/80 backdrop-blur-md border-b border-white/10">
-      <a href="#" className="text-xl font-bold tracking-tight text-white">
-        jammin<span className="text-purple-400">'</span>
-      </a>
-      {/* Desktop */}
-      <div className="hidden md:flex items-center gap-8">
-        {NAV_LINKS.map((l) => (
-          <a key={l.href} href={l.href} className="text-sm text-white/70 hover:text-white transition-colors">
-            {l.label}
-          </a>
-        ))}
-      </div>
-      <div className="hidden md:flex items-center gap-3">
-        <a href="#" className="text-sm text-white/70 hover:text-white transition-colors px-3 py-1.5">
-          Log in
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#111]/90 backdrop-blur-md border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
+        <a href="/">
+          <Image src={LOGO_WHITE} alt="Jammin'" width={120} height={28} priority />
         </a>
-        <a
-          href="#"
-          className="text-sm font-medium bg-white text-black rounded-full px-4 py-1.5 hover:bg-white/90 transition-colors"
-        >
-          Sign up
-        </a>
-      </div>
-      {/* Mobile */}
-      <button className="md:hidden text-white/70 hover:text-white" onClick={() => setOpen(!open)} aria-label="Menu">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          {open ? (
-            <path d="M18 6L6 18M6 6l12 12" />
-          ) : (
-            <path d="M3 12h18M3 6h18M3 18h18" />
-          )}
-        </svg>
-      </button>
-      {open && (
-        <div className="absolute top-full left-0 right-0 bg-black border-b border-white/10 flex flex-col px-6 py-4 gap-4 md:hidden">
-          {NAV_LINKS.map((l) => (
-            <a key={l.href} href={l.href} className="text-sm text-white/70 hover:text-white" onClick={() => setOpen(false)}>
-              {l.label}
+        <div className="hidden md:flex items-center gap-8">
+          {[["#about", "About"], ["#features", "Features"], ["#kindwords", "Kind words"], ["#faqsection", "FAQ"]].map(([href, label]) => (
+            <a key={href} href={href} className="text-sm text-white/70 hover:text-white transition-colors font-medium">
+              {label}
             </a>
           ))}
+        </div>
+        <div className="hidden md:flex items-center gap-2">
+          <a href="https://app.jamminstudio.co/login" target="_blank" rel="noopener noreferrer"
+            className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors">
+            Log in
+          </a>
+          <a href="https://app.jamminstudio.co/register" target="_blank" rel="noopener noreferrer"
+            className="px-4 py-2 text-sm font-semibold border border-[#ff76a2] rounded-lg text-white hover:opacity-80 transition-opacity">
+            Sign up
+          </a>
+        </div>
+        <button className="md:hidden text-white/70 hover:text-white p-2" onClick={() => setOpen(!open)}>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            {open ? <path d="M18 6L6 18M6 6l12 12" /> : <path d="M3 12h18M3 6h18M3 18h18" />}
+          </svg>
+        </button>
+      </div>
+      {open && (
+        <div className="md:hidden bg-[#111] border-b border-white/10 px-6 py-4 flex flex-col gap-4">
+          {[["#about", "About"], ["#features", "Features"], ["#kindwords", "Kind words"], ["#faqsection", "FAQ"]].map(([href, label]) => (
+            <a key={href} href={href} className="text-sm text-white/70" onClick={() => setOpen(false)}>{label}</a>
+          ))}
           <div className="flex gap-3 pt-2">
-            <a href="#" className="text-sm text-white/70">Log in</a>
-            <a href="#" className="text-sm font-medium bg-white text-black rounded-full px-4 py-1.5">Sign up</a>
+            <a href="https://app.jamminstudio.co/login" target="_blank" rel="noopener noreferrer" className="text-sm text-white/70">Log in</a>
+            <a href="https://app.jamminstudio.co/register" target="_blank" rel="noopener noreferrer"
+              className="text-sm font-semibold border border-[#ff76a2] rounded-lg px-4 py-1.5 text-white">Sign up</a>
           </div>
         </div>
       )}
@@ -155,46 +170,44 @@ function NavBar() {
 
 function Hero() {
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-screen text-center px-6 overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-purple-700/20 blur-[120px]" />
-        <div className="absolute top-1/2 left-1/4 w-[300px] h-[300px] rounded-full bg-blue-700/15 blur-[100px]" />
-      </div>
-
-      <div className="relative z-10 max-w-4xl mx-auto">
-        <span className="inline-block text-sm text-purple-400 font-medium tracking-widest uppercase mb-6 bg-purple-400/10 px-4 py-1.5 rounded-full border border-purple-400/20">
-          Now in early access
-        </span>
-        <h1 className="text-5xl md:text-7xl font-bold leading-tight tracking-tight text-white mb-6">
-          Where music is made{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
-            together
-          </span>
-          , not sent back and forth.
-        </h1>
-        <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Jammin&apos; is the real-time music collaboration platform where musicians create, record, and share — simultaneously, from anywhere.
-        </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a
-            href="#"
-            className="px-8 py-3.5 rounded-full bg-white text-black font-semibold text-base hover:bg-white/90 transition-all shadow-lg shadow-white/10"
-          >
+    <section id="home" className="bg-[#111] min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden">
+      <div className="max-w-4xl mx-auto px-6 text-center flex flex-col items-center gap-8">
+        <div className="flex flex-col items-center gap-4">
+          <h1 className="gradient-text text-5xl md:text-7xl font-extrabold leading-tight tracking-tight">
+            Where music is made together,
+          </h1>
+          <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight tracking-tight">
+            not sent back and forth
+          </h2>
+        </div>
+        <p className="text-white/60 text-lg font-medium">Music was never meant to be felt alone</p>
+        <div className="flex flex-col sm:flex-row items-center gap-4">
+          <a href="https://app.jamminstudio.co/register" target="_blank" rel="noopener noreferrer"
+            className="px-6 py-3 bg-[#ff76a2] text-white font-semibold rounded-lg hover:opacity-90 transition-opacity text-sm">
             Join the Jam
           </a>
-          <a href="#features" className="px-8 py-3.5 rounded-full border border-white/20 text-white text-base hover:bg-white/5 transition-all">
-            See how it works
+          <a href="#features"
+            className="flex items-center gap-2 px-6 py-3 border border-[#ff76a2] rounded-lg text-white font-semibold text-sm hover:opacity-80 transition-opacity">
+            <Image src={PLAY_ICON} alt="" width={16} height={16} />
+            See it in action
           </a>
         </div>
-        <p className="mt-6 text-sm text-white/40">Talent and dedication alone should give musicians a great living.</p>
+        <div className="flex items-center gap-3 mt-2">
+          <Image src={BEN_LANG_PHOTO} alt="Ben Lang" width={28} height={28} className="rounded-full" />
+          <p className="text-white/60 text-sm italic">
+            &quot;Feels like figma for music is finally here. Super cool.&quot; — <span className="text-white font-medium not-italic">Ben Lang</span>
+          </p>
+        </div>
       </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/30 animate-bounce">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M12 5v14M5 12l7 7 7-7" />
-        </svg>
+      <div className="w-full mt-16 px-4 md:px-12 max-w-7xl mx-auto">
+        <Image
+          src={APP_SCREENSHOT}
+          alt="Jammin' app screenshot"
+          width={3024}
+          height={1800}
+          className="w-full rounded-2xl"
+          priority
+        />
       </div>
     </section>
   );
@@ -202,29 +215,26 @@ function Hero() {
 
 function About() {
   return (
-    <section id="about" className="py-24 px-6 max-w-5xl mx-auto">
-      <div className="grid md:grid-cols-2 gap-16 items-center">
-        <div>
-          <h2 className="text-4xl font-bold text-white mb-6 leading-tight">
-            Music made for collaboration, not isolation.
-          </h2>
-          <p className="text-white/60 leading-relaxed mb-4">
-            For too long, musicians have been stuck emailing audio files, waiting for feedback, and losing the spark of spontaneous creation. Jammin&apos; changes that.
-          </p>
-          <p className="text-white/60 leading-relaxed">
-            Think of it like a shared document — but for music. Every collaborator works on the same session in real time, so the creative energy never gets lost in translation.
-          </p>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          {[
-            { label: "Real-time sessions", value: "✓" },
-            { label: "Browser-based", value: "✓" },
-            { label: "Community platform", value: "✓" },
-            { label: "No installs", value: "✓" },
-          ].map((item) => (
-            <div key={item.label} className="bg-white/5 border border-white/10 rounded-2xl p-5 flex flex-col gap-2">
-              <span className="text-2xl text-purple-400">{item.value}</span>
-              <span className="text-sm text-white/70">{item.label}</span>
+    <section id="about" className="bg-[#111] py-20 px-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {BENTO.map((b) => (
+            <div
+              key={b.label}
+              className={`relative rounded-[20px] overflow-hidden p-8 flex flex-col justify-between ${
+                b.label === "forth" ? "bg-[#353637]" : "bg-[#222]"
+              } ${b.label === "first" || b.label === "second" ? "md:col-span-2 h-[440px]" : "h-[260px]"}`}
+            >
+              <h3 className="text-white font-semibold text-lg leading-snug z-10 relative">{b.title}</h3>
+              <div className="absolute inset-0 flex items-end justify-center overflow-hidden">
+                <Image
+                  src={b.img}
+                  alt=""
+                  width={b.imgWidth}
+                  height={b.imgHeight}
+                  className="object-contain max-h-full"
+                />
+              </div>
             </div>
           ))}
         </div>
@@ -234,27 +244,46 @@ function About() {
 }
 
 function Features() {
+  const [active, setActive] = useState(0);
   return (
-    <section id="features" className="py-24 px-6 max-w-5xl mx-auto">
-      <div className="text-center mb-16">
-        <h2 className="text-4xl font-bold text-white mb-4">Everything you need to create together</h2>
-        <p className="text-white/50 max-w-xl mx-auto">
-          From real-time jamming to community discovery — Jammin&apos; has the tools musicians actually need.
-        </p>
-      </div>
-      <div className="grid md:grid-cols-3 gap-4 auto-rows-auto">
-        {FEATURES.map((f, i) => (
-          <div
-            key={f.title}
-            className={`bg-white/5 border border-white/10 rounded-2xl p-7 flex flex-col gap-4 hover:bg-white/8 transition-colors ${
-              f.wide ? "md:col-span-2" : ""
-            } ${i === 3 ? "md:col-span-2" : ""}`}
-          >
-            <span className="text-3xl">{f.icon}</span>
-            <h3 className="text-lg font-semibold text-white">{f.title}</h3>
-            <p className="text-sm text-white/55 leading-relaxed">{f.description}</p>
+    <section id="features" className="bg-[#111] py-20 px-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-white">
+            Features you don&apos;t find anywhere else
+          </h2>
+        </div>
+        <div className="flex flex-col md:flex-row gap-8">
+          <div className="flex md:flex-col gap-2 md:w-64 flex-shrink-0">
+            {FEATURE_TABS.map((tab, i) => (
+              <button
+                key={tab.label}
+                onClick={() => setActive(i)}
+                className={`text-left px-5 py-4 rounded-xl font-semibold text-sm transition-all ${
+                  active === i
+                    ? "bg-[#222] text-white border border-[#ff76a247]"
+                    : "text-white/50 hover:text-white/80"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
-        ))}
+          <div className="flex-1 rounded-2xl overflow-hidden bg-[#222] min-h-[360px] md:min-h-[480px]">
+            <video
+              key={FEATURE_TABS[active].mp4}
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster={FEATURE_TABS[active].poster}
+              className="w-full h-full object-cover"
+            >
+              <source src={FEATURE_TABS[active].mp4} type="video/mp4" />
+              <source src={FEATURE_TABS[active].webm} type="video/webm" />
+            </video>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -262,23 +291,27 @@ function Features() {
 
 function Testimonials() {
   return (
-    <section id="testimonials" className="py-24 px-6 bg-white/[0.02] border-y border-white/10">
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-white mb-4">Kind words</h2>
-          <p className="text-white/50">From musicians who&apos;ve been waiting for something like this.</p>
+    <section id="kindwords" className="bg-[#111] py-20 px-6 overflow-hidden">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-3">Hear it from our community</h2>
+          <p className="text-white/50 text-lg">Nice feedback we received from our members</p>
         </div>
-        <div className="grid md:grid-cols-3 gap-5">
+        <div className="grid md:grid-cols-2 gap-4">
           {TESTIMONIALS.map((t) => (
-            <div key={t.name} className="bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col gap-4">
-              <p className="text-white/70 text-sm leading-relaxed flex-1">&quot;{t.quote}&quot;</p>
+            <div key={t.name} className="bg-[#1a1a1a] border border-white/10 rounded-2xl p-7 flex flex-col gap-5">
+              <p className="text-white/70 text-base leading-relaxed flex-1">&quot;{t.quote}&quot;</p>
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-xs font-semibold text-white">
-                  {t.initials}
-                </div>
+                <Image
+                  src={t.img}
+                  alt={t.name}
+                  width={40}
+                  height={40}
+                  className="rounded-full object-cover w-10 h-10"
+                />
                 <div>
-                  <p className="text-sm font-medium text-white">{t.name}</p>
-                  <p className="text-xs text-white/40">{t.role}</p>
+                  <p className="text-white font-semibold text-sm">{t.name}</p>
+                  <p className="text-white/40 text-xs">{t.role}</p>
                 </div>
               </div>
             </div>
@@ -289,16 +322,47 @@ function Testimonials() {
   );
 }
 
+function CTA() {
+  return (
+    <section className="bg-[#111] py-20 px-6">
+      <div className="max-w-4xl mx-auto">
+        <div className="bg-[#1a1a1a] border border-[#ff76a225] rounded-2xl p-12 flex flex-col md:flex-row gap-10 items-start justify-between">
+          <div className="max-w-lg">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-6">
+              Take your musicianship to the next level with Jammin&apos;
+            </h2>
+            <p className="text-white/55 leading-relaxed mb-8">
+              Collaborate on music files in real-time with your band members, publish your new songs inside the community,
+              build a portfolio, gain followers and land new gigs. All inside the platform.
+            </p>
+            <a
+              href="https://app.jamminstudio.co/register"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-6 py-3 bg-[#ff76a2] text-white font-semibold rounded-lg hover:opacity-90 transition-opacity text-sm"
+            >
+              Sign up to Jammin&apos;
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Partners() {
   return (
-    <section className="py-16 px-6 max-w-5xl mx-auto">
-      <p className="text-center text-xs uppercase tracking-widest text-white/30 mb-10">Trusted by the music community</p>
-      <div className="flex flex-wrap justify-center items-center gap-8">
-        {PARTNERS.map((p) => (
-          <span key={p} className="text-sm text-white/30 font-medium hover:text-white/60 transition-colors cursor-default">
-            {p}
-          </span>
-        ))}
+    <section className="bg-[#111] py-16 px-6">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-3xl font-extrabold text-white text-center mb-10">Partnerships</h2>
+        <div className="flex flex-wrap justify-center items-center gap-10">
+          {PARTNERS.map((p) => (
+            <a key={p.name} href={p.href} target="_blank" rel="noopener noreferrer"
+              className="opacity-70 hover:opacity-100 transition-opacity">
+              <Image src={p.img} alt={p.name} width={160} height={50} className="object-contain h-10 w-auto" />
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -307,47 +371,27 @@ function Partners() {
 function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
   return (
-    <section id="faq" className="py-24 px-6 max-w-3xl mx-auto">
-      <div className="text-center mb-16">
-        <h2 className="text-4xl font-bold text-white mb-4">Frequently asked</h2>
-        <p className="text-white/50">Everything you need to know before you start jamming.</p>
-      </div>
-      <div className="flex flex-col gap-3">
-        {FAQS.map((faq, i) => (
-          <div key={i} className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
-            <button
-              className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-white/5 transition-colors"
-              onClick={() => setOpen(open === i ? null : i)}
-            >
-              <span className="text-sm font-medium text-white">{faq.q}</span>
-              <span className="text-white/40 flex-shrink-0">{open === i ? "−" : "+"}</span>
-            </button>
-            {open === i && (
-              <div className="px-6 pb-5">
-                <p className="text-sm text-white/55 leading-relaxed">{faq.a}</p>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function CTA() {
-  return (
-    <section className="py-24 px-6">
-      <div className="max-w-2xl mx-auto text-center bg-gradient-to-br from-purple-900/40 to-blue-900/30 border border-white/10 rounded-3xl p-14">
-        <h2 className="text-4xl font-bold text-white mb-4">Ready to jam?</h2>
-        <p className="text-white/55 mb-8 leading-relaxed">
-          Join thousands of musicians already creating together on Jammin&apos;. It&apos;s free to get started.
-        </p>
-        <a
-          href="#"
-          className="inline-block px-8 py-3.5 rounded-full bg-white text-black font-semibold text-base hover:bg-white/90 transition-all"
-        >
-          Sign up for free
-        </a>
+    <section id="faqsection" className="bg-[#111] py-20 px-6">
+      <div className="max-w-3xl mx-auto">
+        <h2 className="text-3xl font-extrabold text-white mb-10">Frequently asked questions</h2>
+        <div className="flex flex-col gap-3">
+          {FAQS.map((faq, i) => (
+            <div key={i} className="border border-white/10 rounded-xl overflow-hidden">
+              <button
+                className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-white/5 transition-colors"
+                onClick={() => setOpen(open === i ? null : i)}
+              >
+                <span className="text-sm font-semibold text-white">{faq.q}</span>
+                <span className="text-[#ff76a2] flex-shrink-0 text-lg">{open === i ? "−" : "+"}</span>
+              </button>
+              {open === i && (
+                <div className="px-6 pb-5">
+                  <p className="text-sm text-white/60 leading-relaxed">{faq.a}</p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -355,23 +399,22 @@ function CTA() {
 
 function Footer() {
   return (
-    <footer className="border-t border-white/10 px-6 py-12">
-      <div className="max-w-5xl mx-auto">
+    <footer className="bg-[#111] border-t border-white/10 px-6 py-12">
+      <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-10">
-          <a href="#" className="text-xl font-bold text-white tracking-tight">
-            jammin<span className="text-purple-400">'</span>
+          <a href="/">
+            <Image src={FOOTER_LOGO} alt="Jammin'" width={140} height={32} className="object-contain" />
           </a>
           <div className="flex flex-wrap gap-6 text-sm text-white/40">
-            {NAV_LINKS.map((l) => (
-              <a key={l.href} href={l.href} className="hover:text-white/70 transition-colors">{l.label}</a>
+            {[["#about", "About"], ["#features", "Features"], ["#kindwords", "Kind words"], ["#faqsection", "FAQ"]].map(([href, label]) => (
+              <a key={href} href={href} className="hover:text-white/70 transition-colors">{label}</a>
             ))}
             <a href="#" className="hover:text-white/70 transition-colors">Privacy policy</a>
-            <a href="#" className="hover:text-white/70 transition-colors">Terms</a>
+            <a href="#" className="hover:text-white/70 transition-colors">Terms and Conditions</a>
           </div>
         </div>
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/25">
-          <p>© {new Date().getFullYear()} Jammin&apos; Studio. All rights reserved.</p>
-          <p className="italic">&quot;Talent and dedication alone should give musicians a great living.&quot;</p>
+        <div className="border-t border-white/10 pt-8 text-xs text-white/25 text-center">
+          <p>© {new Date().getFullYear()} Jammin&apos;. All rights reserved.</p>
         </div>
       </div>
     </footer>
@@ -380,15 +423,15 @@ function Footer() {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
-      <NavBar />
+    <div className="bg-[#111]">
+      <Navbar />
       <Hero />
-      <Partners />
       <About />
       <Features />
       <Testimonials />
-      <FAQ />
       <CTA />
+      <Partners />
+      <FAQ />
       <Footer />
     </div>
   );
