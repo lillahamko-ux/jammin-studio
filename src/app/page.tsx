@@ -324,27 +324,27 @@ function Testimonials() {
 
 function CTA() {
   return (
-    <section className="bg-[#111] py-20 px-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-[#1a1a1a] border border-[#ff76a225] rounded-2xl p-12 flex flex-col md:flex-row gap-10 items-start justify-between">
-          <div className="max-w-lg">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-6">
-              Take your musicianship to the next level with Jammin&apos;
-            </h2>
-            <p className="text-white/55 leading-relaxed mb-8">
-              Collaborate on music files in real-time with your band members, publish your new songs inside the community,
-              build a portfolio, gain followers and land new gigs. All inside the platform.
-            </p>
-            <a
-              href="https://app.jamminstudio.co/register"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-6 py-3 bg-[#ff76a2] text-white font-semibold rounded-lg hover:opacity-90 transition-opacity text-sm"
-            >
-              Sign up to Jammin&apos;
-            </a>
-          </div>
-        </div>
+    <section className="bg-[#111] py-24 px-6">
+      <div className="max-w-4xl mx-auto text-center">
+        <h2 className="text-4xl md:text-6xl font-normal leading-tight mb-8">
+          <span className="text-white">Take your musicianship</span>
+          <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ffb3cc] to-[#e63573]">
+            to the next level with Jammin&apos;
+          </span>
+        </h2>
+        <p className="text-white/70 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-10">
+          Collaborate on music files in real-time with your band members, publish your new songs inside the community,
+          build a portfolio, gain followers and land new gigs. All inside the platform.
+        </p>
+        <a
+          href="https://app.jamminstudio.co/register"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block px-10 py-4 bg-gradient-to-b from-[#f48fb1] to-[#e63573] text-white font-semibold rounded-xl hover:opacity-90 transition-opacity"
+        >
+          Sign up to Jammin&apos;
+        </a>
       </div>
     </section>
   );
@@ -354,12 +354,12 @@ function Partners() {
   return (
     <section className="bg-[#111] py-16 px-6">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-extrabold text-white text-center mb-10">Partnerships</h2>
-        <div className="flex flex-wrap justify-center items-center gap-10">
+        <h2 className="text-4xl md:text-5xl font-normal text-white text-center mb-16">Partnerships</h2>
+        <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20">
           {PARTNERS.map((p) => (
             <a key={p.name} href={p.href} target="_blank" rel="noopener noreferrer"
-              className="opacity-70 hover:opacity-100 transition-opacity">
-              <Image src={p.img} alt={p.name} width={160} height={50} className="object-contain h-10 w-auto" />
+              className="opacity-80 hover:opacity-100 transition-opacity">
+              <Image src={p.img} alt={p.name} width={260} height={90} className="object-contain h-16 md:h-20 w-auto" />
             </a>
           ))}
         </div>
@@ -374,19 +374,21 @@ function FAQ() {
     <section id="faqsection" className="bg-[#111] py-20 px-6">
       <div className="max-w-3xl mx-auto">
         <h2 className="text-3xl font-extrabold text-white mb-10">Frequently asked questions</h2>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-4">
           {FAQS.map((faq, i) => (
-            <div key={i} className="border border-white/10 rounded-xl overflow-hidden">
+            <div key={i} className="border border-[#ff76a2]/30 rounded-2xl overflow-hidden">
               <button
-                className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-white/5 transition-colors"
+                className="w-full text-left px-8 py-7 flex items-start justify-between gap-6 hover:bg-white/5 transition-colors"
                 onClick={() => setOpen(open === i ? null : i)}
               >
-                <span className="text-sm font-semibold text-white">{faq.q}</span>
-                <span className="text-[#ff76a2] flex-shrink-0 text-lg">{open === i ? "−" : "+"}</span>
+                <span className="text-2xl md:text-3xl font-bold text-white leading-snug">{faq.q}</span>
+                <span className="text-white/70 flex-shrink-0 text-2xl leading-none mt-1">
+                  {open === i ? "✕" : "+"}
+                </span>
               </button>
               {open === i && (
-                <div className="px-6 pb-5">
-                  <p className="text-sm text-white/60 leading-relaxed">{faq.a}</p>
+                <div className="px-8 pb-8 -mt-2">
+                  <p className="text-lg md:text-xl text-white/70 leading-relaxed">{faq.a}</p>
                 </div>
               )}
             </div>
@@ -399,7 +401,7 @@ function FAQ() {
 
 function Footer() {
   return (
-    <footer className="bg-[#111] border-t border-white/10 px-6 py-12">
+    <footer className="bg-[#0d0d0d] border-t border-white/10 px-6 pt-12">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-10">
           <a href="/">
@@ -413,9 +415,30 @@ function Footer() {
             <a href="#" className="hover:text-white/70 transition-colors">Terms and Conditions</a>
           </div>
         </div>
-        <div className="border-t border-white/10 pt-8 text-xs text-white/25 text-center">
-          <p>© {new Date().getFullYear()} Jammin&apos;. All rights reserved.</p>
-        </div>
+      </div>
+
+      {/* Giant outlined wordmark fading downward */}
+      <div className="relative w-full overflow-hidden select-none pointer-events-none">
+        <h2
+          className="w-full text-center font-bold leading-none whitespace-nowrap text-transparent"
+          style={{
+            fontSize: "clamp(4rem, 26vw, 26rem)",
+            WebkitTextStroke: "1.5px #ff76a2",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, rgba(0,0,0,1) 10%, rgba(0,0,0,0.15) 70%, rgba(0,0,0,0) 100%)",
+            maskImage:
+              "linear-gradient(to bottom, rgba(0,0,0,1) 10%, rgba(0,0,0,0.15) 70%, rgba(0,0,0,0) 100%)",
+            letterSpacing: "-0.02em",
+          }}
+        >
+          Jammin&apos;
+        </h2>
+      </div>
+
+      <div className="border-t border-white/5 py-6 text-center text-xs text-white/30">
+        <p>
+          2025 @copywright Jammin&apos; | website made with love by studio aceso
+        </p>
       </div>
     </footer>
   );
