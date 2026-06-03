@@ -195,26 +195,39 @@ function About() {
   return (
     <section id="about" className="bg-[#111] py-20 px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {BENTO.map((b) => (
-            <div
-              key={b.label}
-              className={`relative rounded-[20px] overflow-hidden p-8 flex flex-col justify-between ${
-                b.label === "forth" ? "bg-[#353637]" : "bg-[#222]"
-              } ${b.label === "first" || b.label === "second" ? "md:col-span-2 h-[440px]" : "h-[260px]"}`}
-            >
-              <h3 className="text-white font-semibold text-lg leading-snug z-10 relative">{b.title}</h3>
-              <div className="absolute inset-0 flex items-end justify-center overflow-hidden">
-                <Image
-                  src={b.img}
-                  alt=""
-                  width={b.imgWidth}
-                  height={b.imgHeight}
-                  className="object-contain max-h-full"
-                />
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
+          {BENTO.map((b) => {
+            const span =
+              b.label === "first" ? "lg:col-span-2"
+              : b.label === "second" ? "lg:col-span-3"
+              : b.label === "third" ? "lg:col-span-3"
+              : "lg:col-span-2"; // forth
+            const headingBottom = b.label === "second" || b.label === "forth";
+            return (
+              <div
+                key={b.label}
+                className={`relative rounded-[20px] overflow-hidden p-8 flex flex-col h-[420px] ${
+                  b.label === "forth" ? "bg-[#353637]" : "bg-[#222]"
+                } ${headingBottom ? "justify-end" : "justify-start"} ${span}`}
+              >
+                <h3 className="text-white font-semibold text-2xl leading-snug z-10 relative max-w-md">{b.title}</h3>
+                <div
+                  className={`absolute inset-x-0 flex justify-center overflow-hidden ${
+                    headingBottom ? "top-0 items-start" : "bottom-0 items-end"
+                  }`}
+                  style={{ [headingBottom ? "bottom" : "top"]: "5rem" }}
+                >
+                  <Image
+                    src={b.img}
+                    alt=""
+                    width={b.imgWidth}
+                    height={b.imgHeight}
+                    className="object-contain max-h-full w-auto"
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
@@ -251,7 +264,7 @@ function Features() {
             </div>
           </div>
           {/* Active video */}
-          <div className="rounded-2xl overflow-hidden bg-[#222]">
+          <div className="rounded-2xl overflow-hidden bg-[#222] w-full md:w-[70%] mx-auto">
             <video
               key={FEATURE_TABS[active].mp4}
               autoPlay
